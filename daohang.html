@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>网址导航</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="./static/css/bootstrap.min.css" rel="stylesheet">
+  <script src="./static/js/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="./static/js/vue.global.min.js"></script>
+  <script src="./static/js/echarts/echarts.js"></script>
+  <style type="text/css">
+    a {
+      text-decoration: none;
+    }
+
+    .rcorners1 {
+      border-radius: 1rem;
+      background: #b60dd8;
+      margin-right: 0.625rem;
+      width: 320px;
+      height: 100px;
+      text-align: center;
+    }
+
+    .rcorners1:hover {
+
+      border-radius: 2rem;
+    }
+
+    #rcorners2 {
+      border-radius: 1rem;
+      background: #ed3333;
+      height: 260px;
+    }
+
+    .bgm {
+      background-color: rgb(229, 243, 243);
+    }
+
+    .showTime {
+      text-align: center;
+    }
+
+    .rj {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    var t = null;
+
+
+    t = setTimeout(time, 1000); //開始运行
+    function time() {
+      clearTimeout(t); //清除定时器
+      dt = new Date();
+      var sr = "2022/11/04";
+
+      var y = dt.getFullYear();
+      var mt = dt.getMonth() + 1;
+      var day = dt.getDate();
+      var h = dt.getHours(); //获取时
+      var m = dt.getMinutes(); //获取分
+      if (m < 10) { m = "0" + String(m); }
+      var s = dt.getSeconds(); //获取秒
+      if (s < 10) { s = "0" + String(s); }
+
+      var dat = y+"/"+mt+"/"+day;
+      dat = Date.parse(dat);
+      var rq = Date.parse(sr);
+      sr = dat - rq;
+      sr = sr / 60 / 60 / 24 / 1000
+      var weekday = new Array(7);
+      weekday[0] = "星期日";
+      weekday[1] = "星期一";
+      weekday[2] = "星期二";
+      weekday[3] = "星期三";
+      weekday[4] = "星期四";
+      weekday[5] = "星期五";
+      weekday[6] = "星期六";
+
+      document.querySelector(".showTime").innerHTML =
+        y + "年" + mt + "月" + day + "日    " + weekday[dt.getDay()] + "<br>" + h + "时" + m + "分" + s + "秒" + "<br>润杰今天" + sr + "天了哦";
+      t = setTimeout(time, 1000); //设定定时器，循环运行
+    }
+  </script>
+  <div class="container bgm">
+    <br>
+    <div id="rcorners2" class="showTime display-2 text-white bg-gradient">2023年8月8日 星期一 <br> 08时08分08秒</div>
+
+    <br><br>
+
+    <div class="row">
+      <div class="rcorners1 col-3 bg-primary bg-gradient">
+        <a href="http://www.zhihu.com/" target="_blank">
+          <p class="text-white display-2">知&nbsp;&nbsp;&nbsp;&nbsp;乎</p>
+        </a>
+      </div>
+      <div class="rcorners1 col-3 bg-danger bg-gradient">
+        <a href="https://ddys.info/" target="_blank">
+          <p class="text-white display-2">低端影视</p>
+        </a>
+      </div>
+      <div class="rcorners1 col-3 bg-success bg-gradient">
+        <a href="http://www.549.tv/" target="_blank">
+          <p class="text-white display-2">影视森林</p>
+        </a>
+      </div>
+      <div class="rcorners1 col-3 bg-warning bg-gradient">
+        <a href="https://www.dmxq.vip/" target="_blank">
+          <p class="text-white display-2">大米星球</p>
+        </a>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="rcorners1 col-3 bg-gradient" style="background-color: #0eb0c9;">
+        <a href="http://www.youku.com/" target="_blank">
+          <p class="text-white display-2">优&nbsp;&nbsp;&nbsp;&nbsp;酷</p>
+        </a>
+      </div>
+      <div class="rcorners1 col-3 bg-gradient" style="background-color: rgb(60, 117, 2);">
+        <a href="https://www.runoob.com/" target="_blank">
+          <p class="text-white display-2">菜鸟教程</p>
+        </a>
+      </div>
+      <div class="rcorners1 col-3 bg-gradient" style="background-color: dimgray;">
+        <a href="http://www.wmsio.cn/" target="_blank">
+          <p class="text-white display-2">盒子地窖</p>
+        </a>
+      </div>
+      <div class="rcorners1 col-3 bg-gradient" style="background-color: rgb(240, 8, 8);">
+        <a href="http://www.52pojie.cn" target="_blank">
+          <p class="text-white display-2">吾爱破解</p>
+        </a>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="rcorners1 col-3 bg-gradient" style="background-color: #ef3473;">
+        <a href="http://www.bilibili.com/" target="_blank">
+          <p class="text-white display-2">哔哩哔哩</p>
+        </a>
+      </div>
+      <div class="rcorners1 col-3 bg-gradient" style="background-color: rgb(42, 253, 0);">
+        <a href="https://www.zxzjhd.com/" target="_blank">
+          <p class="text-white display-2">在线之家</p>
+        </a>
+      </div>
+      <div class="rcorners1 col-3 bg-gradient" style="background-color:black">
+        <a href="https://www.right.com.cn/forum/forum.php?mod=forumdisplay&fid=158&filter=typeid&typeid=21" target="_blank">
+          <p class="text-white display-2">恩山论坛</p>
+        </a>
+      </div>
+      <div class="rcorners1 col-3 bg-gradient" style="background-color: rgb(35, 55, 241);">
+        <a href="https://pan666.cn/" target="_blank">
+          <p class="text-white display-2">云盘资源</p>
+        </a>
+      </div>
+    </div>
+
+    <br>
+    <div class="row">
+      <div class="rcorners1 col-3 bg-gradient" style="background-color: #ef3473;">
+        <a href="https://rutracker.org/" target="_blank">
+          <p class="text-white display-2">Rutracker</p>
+        </a>
+      </div>
+      <div class="rcorners1 col-3 bg-gradient" style="background-color: rgb(42, 253, 0);">
+        <a href="https://aikanys.vip/" target="_blank">
+          <p class="text-white display-2">爱看影视</p>
+        </a>
+      </div>
+      <div class="rcorners1 col-3 bg-gradient" style="background-color:black">
+        <a href="https://www.btnull.net/" target="_blank">
+          <p class="text-white display-2">无名小站</p>
+        </a>
+      </div>
+      <div class="rcorners1 col-3 bg-gradient" style="background-color: crimson;">
+        <a href="https://pan666.cn/" target="_blank">
+          <p class="text-white display-2">云盘资源</p>
+        </a>
+      </div>
+    </div>
+
+
+    <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+
+    <script type="text/javascript">
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = echarts.init(document.getElementById('main'));
+
+      // 指定图表的配置项和数据
+      var option = {
+        tooltip: {
+          formatter: '{a} <br/>{b} : {c}%'
+        },
+        series: [
+          {
+            name: 'Pressure',
+            type: 'gauge',
+            progress: {
+              show: true
+            },
+            detail: {
+              valueAnimation: true,
+              formatter: '{value}'
+            },
+            data: [
+              {
+                value: 50,
+                name: 'SCORE'
+              }
+            ]
+          }
+        ]
+      };
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+    </script>
+    </script>
+    
+</body>
+
+</html>
