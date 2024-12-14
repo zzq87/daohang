@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .card {
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .bg-pastel-1 { background-color: #FFE4E1; }
+        .bg-pastel-2 { background-color: #E0FFFF; }
+        .bg-pastel-3 { background-color: #F0FFF0; }
+        .bg-pastel-4 { background-color: #FFF0F5; }
+        .bg-pastel-5 { background-color: #F0F8FF; }
+        .bg-pastel-6 { background-color: #FAFAD2; }
+        
+        /* 添加侧边栏样式 */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            padding: 48px 0 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 280px;
+            z-index: 100;
+            background-color: #f8f9fa;
+        }
+
+        .sidebar .nav-link {
+            color: #333;
+            padding: 0.5rem 1rem;
+            border-radius: 0;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: #e9ecef;
+        }
+
+        .sidebar .nav-link.active {
+            background-color: #007bff;
+            color: white;
+        }
+
+        /* 调整主内容区域 */
+        .main-content {
+            margin-left: 280px;
+            padding: 20px;
+        }
+
+        .card img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+        }
+        .card-text {
+            font-size: 0.875rem; /* 14px */
+        }
+        .card-title {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- 添加侧边栏导航 -->
+    <nav class="sidebar">
+        <div class="position-sticky">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">
+                        <i class="fas fa-home me-2"></i>首页
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-film me-2"></i>电影
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-tv me-2"></i>电视剧
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-play-circle me-2"></i>动漫
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-star me-2"></i>收藏
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-cog me-2"></i>设置
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 将原有内容包装在main-content div中 -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <!-- 第一行 -->
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <a href="https://ddys.pro/" target="_blank" style="text-decoration: none; color: inherit;">
+                        <div class="card bg-pastel-1">
+                            <div class="card-body d-flex align-items-center">
+                                <img class="card-img rounded me-3" src="https://ddys.pro/favicon.ico" alt="图片">
+                                <div>
+                                    <h5 class="card-title">低端影视</h5>
+                                    <p class="tag mb-1">
+                                        <span class="badge rounded-pill text-white bg-success me-0.5">电影</span>
+                                        <span class="badge rounded-pill text-white bg-dark me-0.5">电视剧</span>
+                                        <span class="badge rounded-pill text-white bg-warning me-0.5">动漫</span>
+                                        <span class="badge rounded-pill text-white bg-danger me-0.5">极速</span>
+                                    </p>
+                                    <p class="card-text">这里是第一行第一列的内容。您可以在这里添加任何文本</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-pastel-2">
+                        <div class="card-body d-flex align-items-center">
+                            <img class="card-img rounded me-3" src="/static/img/bg.jpg" alt="图片">
+                            <div>
+                                <h5 class="card-title">第一行第二列</h5>
+                                    <p class="tag mb-1">
+                                        <span class="badge rounded-pill text-white bg-success me-0.5">电影</span>
+                                        <span class="badge rounded-pill text-white bg-dark me-0.5">电视剧</span>
+                                        <span class="badge rounded-pill text-white bg-warning me-0.5">动漫</span>
+                                        <span class="badge rounded-pill text-white bg-danger me-0.5">极速</span>
+                                    </p>
+                                <p class="card-text">这里是第一行第二列的内容。您可以在这里添加任何文本或其他元素。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-pastel-3">
+                        <div class="card-body d-flex align-items-center">
+                            <img class="card-img rounded me-3" src="/static/img/bg.jpg" alt="图片">
+                            <div>
+                                <h5 class="card-title">第一行第三列</h5>
+                                    <p class="tag mb-1">
+                                        <span class="badge rounded-pill text-white bg-success me-0.5">电影</span>
+                                        <span class="badge rounded-pill text-white bg-dark me-0.5">电视剧</span>
+                                        <span class="badge rounded-pill text-white bg-warning me-0.5">动漫</span>
+                                        <span class="badge rounded-pill text-white bg-danger me-0.5">极速</span>
+                                    </p>
+                                <p class="card-text">这里是第一行第三列的内容。您可以在这里添加任何文本或其他元素。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 第二行 -->
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="card bg-pastel-4">
+                        <div class="card-body d-flex align-items-center">
+                            <img class="card-img rounded me-3" src="/static/img/bg.jpg" alt="图片">
+                            <div>
+                                <h5 class="card-title">第二行第一列</h5>
+                                    <p class="tag mb-1">
+                                        <span class="badge rounded-pill text-white bg-success me-0.5">电影</span>
+                                        <span class="badge rounded-pill text-white bg-dark me-0.5">电视剧</span>
+                                        <span class="badge rounded-pill text-white bg-warning me-0.5">动漫</span>
+                                        <span class="badge rounded-pill text-white bg-danger me-0.5">极速</span>
+                                    </p>
+                                <p class="card-text">这里是第二行第一列的内容。您可以在这里添加任何文本或其他元素。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-pastel-5">
+                        <div class="card-body d-flex align-items-center">
+                            <img class="card-img rounded me-3" src="/static/img/bg.jpg" alt="图片">
+                            <div>
+                                <h5 class="card-title">第二行第二列</h5>
+                                    <p class="tag mb-1">
+                                        <span class="badge rounded-pill text-white bg-success me-0.5">电影</span>
+                                        <span class="badge rounded-pill text-white bg-dark me-0.5">电视剧</span>
+                                        <span class="badge rounded-pill text-white bg-warning me-0.5">动漫</span>
+                                        <span class="badge rounded-pill text-white bg-danger me-0.5">极速</span>
+                                    </p>
+                                <p class="card-text">这里是第二行第二列的内容。您可以在这里添加任何文本或其他元素。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-pastel-6">
+                        <div class="card-body d-flex align-items-center">
+                            <img class="card-img rounded me-3" src="/static/img/bg.jpg" alt="图片">
+                            <div>
+                                <h5 class="card-title">第二行第三列</h5>
+                                    <p class="tag mb-1">
+                                        <span class="badge rounded-pill text-white bg-success me-0.5">电影</span>
+                                        <span class="badge rounded-pill text-white bg-dark me-0.5">电视剧</span>
+                                        <span class="badge rounded-pill text-white bg-warning me-0.5">动漫</span>
+                                        <span class="badge rounded-pill text-white bg-danger me-0.5">极速</span>
+                                    </p>
+                                <p class="card-text">这里是第二行第三列的内容。您可以在这里添加任何文本或其他元素。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 第三行 -->
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="card bg-pastel-1">
+                        <div class="card-body d-flex align-items-center">
+                            <img class="card-img rounded me-3" src="/static/img/bg.jpg" alt="图片">
+                            <div>
+                                <h5 class="card-title">第三行第一列</h5>
+                                    <p class="tag mb-1">
+                                        <span class="badge rounded-pill text-white bg-success me-0.5">电影</span>
+                                        <span class="badge rounded-pill text-white bg-dark me-0.5">电视剧</span>
+                                        <span class="badge rounded-pill text-white bg-warning me-0.5">动漫</span>
+                                        <span class="badge rounded-pill text-white bg-danger me-0.5">极速</span>
+                                    </p>
+                                <p class="card-text">这里是第三行第一列的内容。您可以在这里添加任何文本或其他元素。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-pastel-2">
+                        <div class="card-body d-flex align-items-center">
+                            <img class="card-img rounded me-3" src="/static/img/bg.jpg" alt="图片">
+                            <div>
+                                <h5 class="card-title">第三行第二列</h5>
+                                    <p class="tag mb-1">
+                                        <span class="badge rounded-pill text-white bg-success me-0.5">电影</span>
+                                        <span class="badge rounded-pill text-white bg-dark me-0.5">电视剧</span>
+                                        <span class="badge rounded-pill text-white bg-warning me-0.5">动漫</span>
+                                        <span class="badge rounded-pill text-white bg-danger me-0.5">极速</span>
+                                    </p>
+                                <p class="card-text">这里是第三行第二列的内容。您可以在这里添加任何文本或其他元素。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-pastel-3">
+                        <div class="card-body d-flex align-items-center">
+                            <img class="card-img rounded me-3" src="/static/img/bg.jpg" alt="图片">
+                            <div>
+                                <h5 class="card-title">第三行第三列</h5>
+                                    <p class="tag mb-1">
+                                        <span class="badge rounded-pill text-white bg-success me-0.5">电影</span>
+                                        <span class="badge rounded-pill text-white bg-dark me-0.5">电视剧</span>
+                                        <span class="badge rounded-pill text-white bg-warning me-0.5">动漫</span>
+                                        <span class="badge rounded-pill text-white bg-danger me-0.5">极速</span>
+                                    </p>
+                                <p class="card-text">这里是第三行第三列的内容。您可以在这里添加任何文本或其他元素。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
