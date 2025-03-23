@@ -112,9 +112,19 @@
         </div>
     </nav>
 
+    
+
     <!-- 将原有内容包装在main-content div中 -->
     <div class="main-content">
         <div class="container-fluid">
+            <!-- 插入显示天数的div -->
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <div class="alert alert-info text-center" role="alert" style="font-size: 1.5rem;">
+                        距离2022年11月4日已经过去了 <span id="days-count"></span> 天。
+                    </div>
+                </div>
+            </div>
             <!-- 第一行 -->
             <div class="row mb-4">
                 <div class="col-md-4">
@@ -290,18 +300,7 @@
             </div>
         </div>
     </div>
-    <!-- 插入显示天数的div -->
-    <div class="main-content">
-        <div class="container-fluid">
-            <div class="row mb-4">
-                <div class="col-md-12">
-                    <div class="alert alert-info text-center" role="alert" style="font-size: 1.5rem;">
-                        距离2022年11月4日已经过去了 <span id="days-count"></span> 天。
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <script>
         // 计算从2022年11月4日到当前时间的天数
         const startDate = new Date('2022-11-04');
