@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 
 <head>
   <title>网址导航</title>
@@ -10,40 +10,164 @@
   <script src="./static/js/vue.global.min.js"></script>
   <script src="./static/js/echarts/echarts.js"></script>
   <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+      padding: 2rem 0;
+    }
+
     a {
       text-decoration: none;
     }
 
-    .rcorners1 {
-      border-radius: 1rem;
-      background: #b60dd8;
-      margin-right: 0.625rem;
-      width: 320px;
-      height: 100px;
-      text-align: center;
-    }
-
-    .rcorners1:hover {
-
-      border-radius: 2rem;
-    }
-
-    #rcorners2 {
-      border-radius: 1rem;
-      background: #ed3333;
-      height: 260px;
-    }
-
-    .bgm {
-      background-color: rgb(229, 243, 243);
+    .container {
+      max-width: 1200px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     }
 
     .showTime {
       text-align: center;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
+      margin-bottom: 2rem;
     }
 
-    .rj {
+    .nav-card {
+      border-radius: 1rem;
+      height: 100px;
       text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      position: relative;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+      pointer-events: none;
+      border-radius: 1rem;
+    }
+
+    .nav-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      background: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      border-radius: 1.5rem;
+    }
+
+    .nav-card a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-card p {
+      margin: 0;
+      line-height: 1.2;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: white;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #333;
+      margin: 1.5rem 0 1rem;
+      padding-left: 0.5rem;
+      border-left: 4px solid #667eea;
+    }
+
+    #main {
+      width: 100%;
+      max-width: 600px;
+      height: 400px;
+      margin: 2rem auto;
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .flip-image {
+      perspective: 1000px;
+      width: 300px;
+      height: 300px;
+      margin: 2rem auto;
+    }
+
+    .flip-image-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+      cursor: pointer;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .flip-image:hover .flip-image-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-image-front, .flip-image-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 1rem;
+    }
+
+    .flip-image-back {
+      transform: rotateY(180deg);
+    }
+
+    .flip-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 2rem;
+      padding: 1rem;
+      color: #666;
+      font-size: 0.9rem;
     }
   </style>
 </head>
@@ -51,23 +175,19 @@
 <body>
   <script>
     var t = null;
-
-
-    t = setTimeout(time, 1000); //開始运行
+    t = setTimeout(time, 1000);
     function time() {
-      clearTimeout(t); //清除定时器
+      clearTimeout(t);
       dt = new Date();
       var sr = "2022/11/04";
-
       var y = dt.getFullYear();
       var mt = dt.getMonth() + 1;
       var day = dt.getDate();
-      var h = dt.getHours(); //获取时
-      var m = dt.getMinutes(); //获取分
+      var h = dt.getHours();
+      var m = dt.getMinutes();
       if (m < 10) { m = "0" + String(m); }
-      var s = dt.getSeconds(); //获取秒
+      var s = dt.getSeconds();
       if (s < 10) { s = "0" + String(s); }
-
       var dat = y+"/"+mt+"/"+day;
       dat = Date.parse(dat);
       var rq = Date.parse(sr);
@@ -81,236 +201,252 @@
       weekday[4] = "星期四";
       weekday[5] = "星期五";
       weekday[6] = "星期六";
-
       document.querySelector(".showTime").innerHTML =
-        y + "年" + mt + "月" + day + "日    " + weekday[dt.getDay()] + "<br>" + h + "时" + m + "分" + s + "秒" + "<br>润杰今天" + sr + "天了哦";
-      t = setTimeout(time, 1000); //设定定时器，循环运行
+        y + "年" + mt + "月" + day + "日 " + weekday[dt.getDay()] + "<br>" + h + ":" + m + ":" + s + "<br>✨ 润杰今天" + Math.floor(sr) + "天了哦";
+      t = setTimeout(time, 1000);
     }
   </script>
-  <div class="container bgm">
-    <br>
-    <div id="rcorners2" class="showTime display-2 text-white bg-gradient">2023年8月8日 星期一 <br> 08时08分08秒</div>
 
-    <br><br>
+  <div class="container">
+    <div class="showTime">2023年8月8日 星期一 <br> 08:08:08</div>
 
-    <div class="row">
-      <div class="rcorners1 col-3 bg-primary bg-gradient">
-        <a href="http://www.zhihu.com/" target="_blank">
-          <p class="text-white display-2">知&nbsp;&nbsp;&nbsp;&nbsp;乎</p>
-        </a>
+    <div class="section-title">🎬 影视娱乐</div>
+    <div class="row g-3 mb-3">
+      <div class="col-6 col-md-3">
+        <div class="nav-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+          <a href="http://www.zhihu.com/" target="_blank">
+            <p>📖 知乎</p>
+          </a>
+        </div>
       </div>
-      <div class="rcorners1 col-3 bg-danger bg-gradient">
-        <a href="https://www.dytt8899.com/" target="_blank">
-          <p class="text-white display-2">电影天堂</p>
-        </a>
+      <div class="col-6 col-md-3">
+        <div class="nav-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+          <a href="https://www.dytt8899.com/" target="_blank">
+            <p>🎬 电影天堂</p>
+          </a>
+        </div>
       </div>
-      <div class="rcorners1 col-3 bg-success bg-gradient">
-        <a href="http://549.tv/" target="_blank">
-          <p class="text-white display-2">549.tv</p>
-        </a>
+      <div class="col-6 col-md-3">
+        <div class="nav-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+          <a href="http://549.tv/" target="_blank">
+            <p>📺 549.tv</p>
+          </a>
+        </div>
       </div>
-      <div class="rcorners1 col-3 bg-warning bg-gradient">
-        <a href="https://www.novipnoad.net/" target="_blank">
-          <p class="text-white display-2">大米星球</p>
-        </a>
-      </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="rcorners1 col-3 bg-gradient" style="background-color: #0eb0c9;">
-        <a href="http://www.youku.com/" target="_blank">
-          <p class="text-white display-2">优&nbsp;&nbsp;&nbsp;&nbsp;酷</p>
-        </a>
-      </div>
-      <div class="rcorners1 col-3 bg-gradient" style="background-color: rgb(60, 117, 2);">
-        <a href="https://www.runoob.com/" target="_blank">
-          <p class="text-white display-2">菜鸟教程</p>
-        </a>
-      </div>
-      <div class="rcorners1 col-3 bg-gradient" style="background-color: dimgray;">
-        <a href="http://www.wmsio.cn/" target="_blank">
-          <p class="text-white display-2">盒子地窖</p>
-        </a>
-      </div>
-      <div class="rcorners1 col-3 bg-gradient" style="background-color: rgb(240, 8, 8);">
-        <a href="http://www.52pojie.cn" target="_blank">
-          <p class="text-white display-2">吾爱破解</p>
-        </a>
-      </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="rcorners1 col-3 bg-gradient" style="background-color: #ef3473;">
-        <a href="http://www.bilibili.com/" target="_blank">
-          <p class="text-white display-2">哔哩哔哩</p>
-        </a>
-      </div>
-      <div class="rcorners1 col-3 bg-gradient" style="background-color: rgb(42, 253, 0);">
-        <a href="https://www.zxzjhd.com/" target="_blank">
-          <p class="text-white display-2">在线之家</p>
-        </a>
-      </div>
-      <div class="rcorners1 col-3 bg-gradient" style="background-color:black">
-        <a href="https://www.right.com.cn/forum/forum.php?mod=forumdisplay&fid=158&filter=typeid&typeid=21" target="_blank">
-          <p class="text-white display-2">恩山论坛</p>
-        </a>
-      </div>
-      <div class="rcorners1 col-3 bg-gradient" style="background-color: rgb(35, 55, 241);">
-        <a href="https://pan666.net/" target="_blank">
-          <p class="text-white display-2">云盘资源</p>
-        </a>
+      <div class="col-6 col-md-3">
+        <div class="nav-card" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+          <a href="https://www.novipnoad.net/" target="_blank">
+            <p>⭐ 大米星球</p>
+          </a>
+        </div>
       </div>
     </div>
 
-    <br>
-    <div class="row">
-      <div class="rcorners1 col-3 bg-gradient" style="background-color: #ef3473;">
-        <a href="https://rutracker.org/" target="_blank">
-          <p class="text-white display-2">Rutracker</p>
-        </a>
+    <div class="row g-3 mb-3">
+      <div class="col-6 col-md-3">
+        <div class="nav-card" style="background: linear-gradient(135deg, #0eb0c9 0%, #2193b0 100%);">
+          <a href="http://www.youku.com/" target="_blank">
+            <p>▶️ 优酷</p>
+          </a>
+        </div>
       </div>
-      <div class="rcorners1 col-3 bg-gradient" style="background-color: rgb(42, 253, 0);">
-        <a href="https://www.piaohua.com/" target="_blank">
-          <p class="text-white display-2">飘花电影</p>
-        </a>
+      <div class="col-6 col-md-3">
+        <div class="nav-card" style="background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);">
+          <a href="https://www.runoob.com/" target="_blank">
+            <p>📚 菜鸟教程</p>
+          </a>
+        </div>
       </div>
-      <div class="rcorners1 col-3 bg-gradient" style="background-color:black">
-        <a href="https://yandex.com/" target="_blank">
-          <p class="text-white display-2">搜索引擎</p>
-        </a>
+      <div class="col-6 col-md-3">
+        <div class="nav-card" style="background: linear-gradient(135deg, #636e72 0%, #2d3436 100%);">
+          <a href="http://www.wmsio.cn/" target="_blank">
+            <p>📦 盒子地窖</p>
+          </a>
+        </div>
       </div>
-      <div class="rcorners1 col-3 bg-gradient" style="background-color: crimson;">
-        <a href="https://www.chok8.vip/" target="_blank">
-          <p class="text-white display-2">酷吧影视</p>
-        </a>
-      </div>
-    </div>
-
-    <br>
-    <div class="row">
-      <div class="rcorners1 col-3 bg-primary bg-gradient">
-        <a href="https://ayouth.top/ayouth/video.html" target="_blank">
-          <p class="text-white display-2">站点推荐</p>
-        </a>
-      </div>
-      <div class="rcorners1 col-3 bg-danger bg-gradient">
-        <a href="https://www.yaomiso.com/" target="_blank">
-          <p class="text-white display-2">幺米搜索</p>
-        </a>
-      </div>
-      <div class="rcorners1 col-3 bg-success bg-gradient">
-        <a href="https://linux.do/" target="_blank">
-          <p class="text-white display-2">linux.do</p>
-        </a>
-      </div>
-      <div class="rcorners1 col-3 bg-warning bg-gradient">
-        <a href="https://103.194.185.51:51123/" target="_blank">
-          <p class="text-white display-2">好好看啊</p>
-        </a>
-      </div>
-    </div>
-	<br>
-    <div class="row">
-      <div class="rcorners1 col-3 bg-primary bg-gradient">
-        <a href="https://zh.z-lib.gd/" target="_blank">
-          <p class="text-white display-2">电子书库</p>
-        </a>
-      </div>
-      <div class="rcorners1 col-3 bg-danger bg-gradient">
-        <a href="https://www.cupfox.ai/" target="_blank">
-          <p class="text-white display-2">茶杯狐狸</p>
-        </a>
-      </div>
-      <div class="rcorners1 col-3 bg-success bg-gradient">
-        <a href="https://www.aidi6.com/" target="_blank">
-          <p class="text-white display-2">艾迪影视</p>
-        </a>
-      </div>
-      <div class="rcorners1 col-3 bg-warning bg-gradient">
-        <a href="https://pjmp3.de" target="_blank">
-          <p class="text-white display-2">泡椒音乐</p>
-        </a>
+      <div class="col-6 col-md-3">
+        <div class="nav-card" style="background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);">
+          <a href="http://www.52pojie.cn" target="_blank">
+            <p>💝 吾爱破解</p>
+          </a>
+        </div>
       </div>
     </div>
 
+    <div class="section-title">🎵 视频音乐</div>
+    <div class="row g-3 mb-3">
+      <div class="col-6 col-md-3">
+        <div class="nav-card" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);">
+          <a href="http://www.bilibili.com/" target="_blank">
+            <p>📺 哔哩哔哩</p>
+          </a>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="nav-card" style="background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);">
+          <a href="https://www.zxzjhd.com/" target="_blank">
+            <p>🎞️ 在线之家</p>
+          </a>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="nav-card" style="background: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%);">
+          <a href="https://www.right.com.cn/forum/forum.php?mod=forumdisplay&fid=158&filter=typeid&typeid=21" target="_blank">
+            <p>💻 恩山论坛</p>
+          </a>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="nav-card" style="background: linear-gradient(135deg, #2338f1 0%, #6dd5ed 100%);">
+          <a href="https://pan666.net/" target="_blank">
+            <p>☁️ 云盘资源</p>
+          </a>
+        </div>
+      </div>
+    </div>
 
-    <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
-    <div id="main" style="width: 600px;height:400px;"></div>
+    <div class="row g-3 mb-3">
+      <div class="col-6 col-md-3">
+        <div class="nav-card" style="background: linear-gradient(135deg, #ef3473 0%, #ff6b6b 100%);">
+          <a href="https://rutracker.org/" target="_blank">
+            <p>🌐 Rutracker</p>
+          </a>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="nav-card" style="background: linear-gradient(135deg, #2af598 0%, #009efd 100%);">
+          <a href="https://www.piaohua.com/" target="_blank">
+            <p>🎬 飘花电影</p>
+          </a>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="nav-card" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);">
+          <a href="https://yandex.com/" target="_blank">
+            <p>🔍 搜索引擎</p>
+          </a>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="nav-card" style="background: linear-gradient(135deg, #dc143c 0%, #ff6348 100%);">
+          <a href="https://www.chok8.vip/" target="_blank">
+            <p>🎥 酷吧影视</p>
+          </a>
+        </div>
+      </div>
+    </div>
 
-    <script type="text/javascript">
-      // 基于准备好的dom，初始化echarts实例
-      var myChart = echarts.init(document.getElementById('main'));
+    <div class="section-title">🚀 推荐站点</div>
+    <div class="row g-3 mb-3">
+      <div class="col-6 col-md-3">
+        <div class="nav-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+          <a href="https://ayouth.top/ayouth/video.html" target="_blank">
+            <p>🌟 站点推荐</p>
+          </a>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="nav-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+          <a href="https://www.yaomiso.com/" target="_blank">
+            <p>🔎 幺米搜索</p>
+          </a>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="nav-card" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+          <a href="https://linux.do/" target="_blank">
+            <p>🐧 linux.do</p>
+          </a>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="nav-card" style="background: linear-gradient(135deg, #fc4a1a 0%, #f7b733 100%);">
+          <a href="https://103.194.185.51:51123/" target="_blank">
+            <p>🎬 好好看啊</p>
+          </a>
+        </div>
+      </div>
+    </div>
 
-      // 指定图表的配置项和数据
-      var option = {
-        tooltip: {
-          formatter: '{a} <br/>{b} : {c}%'
-        },
-        series: [
-          {
-            name: 'Pressure',
-            type: 'gauge',
-            progress: {
-              show: true
-            },
-            detail: {
-              valueAnimation: true,
-              formatter: '{value}'
-            },
-            data: [
-              {
-                value: 50,
-                name: 'SCORE'
-              }
-            ]
-          }
-        ]
-      };
+    <div class="row g-3 mb-3">
+      <div class="col-6 col-md-3">
+        <div class="nav-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+          <a href="https://zh.z-lib.gd/" target="_blank">
+            <p>📚 电子书库</p>
+          </a>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="nav-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+          <a href="https://www.cupfox.ai/" target="_blank">
+            <p>🦊 茶杯狐狸</p>
+          </a>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="nav-card" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+          <a href="https://www.aidi6.com/" target="_blank">
+            <p>🎬 艾迪影视</p>
+          </a>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="nav-card" style="background: linear-gradient(135deg, #fc4a1a 0%, #f7b733 100%);">
+          <a href="https://pjmp3.de" target="_blank">
+            <p>🎵 泡椒音乐</p>
+          </a>
+        </div>
+      </div>
+    </div>
 
-      // 使用刚指定的配置项和数据显示图表。
-      myChart.setOption(option);
-    </script>
-    </script>
-    <style>
-      .flip-image {
-        perspective: 1000px;
-        width: 300px;
-        height: 300px;
-        margin: 20px auto;
-      }
-      .flip-image-inner {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        text-align: center;
-        transition: transform 0.8s;
-        transform-style: preserve-3d;
-        cursor: pointer;
-      }
-      .flip-image:hover .flip-image-inner {
-        transform: rotateY(180deg);
-      }
-      .flip-image-front, .flip-image-back {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        backface-visibility: hidden;
-      }
-      .flip-image-back {
-        transform: rotateY(180deg);
-      }
-    </style>
+    <div class="section-title">📊 仪表盘</div>
+    <div id="main"></div>
 
+    <div class="section-title">🖼️ 图片展示</div>
     <div class="flip-image">
       <div class="flip-image-inner">
         <div class="flip-image-front">
-          <img src="static/img/bg.jpg" alt="Front image" style="width:100%;height:100%;object-fit:cover;">
+          <img src="static/img/bg.jpg" alt="Front image">
         </div>
         <div class="flip-image-back">
-          <img src="static/img/gril.jpg" alt="Back image" style="width:100%;height:100%;object-fit:cover;">
+          <img src="static/img/gril.jpg" alt="Back image">
         </div>
       </div>
     </div>
+
+    <div class="footer">
+      <p>✨ 个人网址导航 | 精心整理的实用网站 ✨</p>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('main'));
+    var option = {
+      tooltip: {
+        formatter: '{a} <br/>{b} : {c}%'
+      },
+      series: [
+        {
+          name: 'Pressure',
+          type: 'gauge',
+          progress: {
+            show: true
+          },
+          detail: {
+            valueAnimation: true,
+            formatter: '{value}'
+          },
+          data: [
+            {
+              value: 50,
+              name: 'SCORE'
+            }
+          ]
+        }
+      ]
+    };
+    myChart.setOption(option);
+  </script>
 </body>
 
 </html>

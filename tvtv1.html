@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>影视森林导航 - 优质影视资源聚合平台</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --brand-a: #26c281;
+      --brand-b: #10b981;
+      --bs-link-color: #10b981;
+      --bs-link-color-rgb: 38, 194, 129;
+      --bs-link-hover-color-rgb: 68, 77, 88;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif;
+      background-color: var(--bs-body-bg);
+      color: var(--bs-body-color);
+      min-height: 100vh;
+    }
+
+    .navbar {
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      backdrop-filter: blur(10px);
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--brand-b) !important;
+    }
+
+    .navbar-brand img {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      color: var(--bs-body-color);
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--brand-b) !important;
+    }
+
+    .search-section {
+      background: linear-gradient(135deg, rgba(38, 194, 129, 0.05), rgba(16, 185, 129, 0.05));
+      border-radius: 1rem;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .search-box {
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .search-box input {
+      height: 50px;
+      border-radius: 25px;
+      padding: 0 60px 0 20px;
+      border: 2px solid var(--brand-b);
+      font-size: 1rem;
+      transition: all 0.3s;
+      width: 100%;
+    }
+
+    .search-box input:focus {
+      box-shadow: 0 0 0 0.2rem rgba(16, 185, 129, 0.25);
+      border-color: var(--brand-a);
+      outline: none;
+    }
+
+    .search-box button {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      background: var(--brand-b);
+      border: none;
+      color: white;
+      transition: all 0.3s;
+    }
+
+    .search-box button:hover {
+      background: var(--brand-a);
+      transform: scale(1.05);
+    }
+
+    .search-hot {
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .search-hot span {
+      color: var(--bs-secondary-color);
+      margin-right: 0.5rem;
+    }
+
+    .search-hot a {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      margin: 0.25rem;
+      border-radius: 15px;
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--brand-b);
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .search-hot a:hover {
+      background: var(--brand-b);
+      color: white;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 2rem 0 1rem;
+      padding-left: 0.75rem;
+      border-left: 4px solid var(--brand-b);
+      background: linear-gradient(180deg, var(--brand-a), var(--brand-b));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-tabs-custom {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-tabs-custom .tab-btn {
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      border: none;
+      background: transparent;
+      color: var(--bs-secondary-color);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .nav-tabs-custom .tab-btn:hover {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--brand-b);
+    }
+
+    .nav-tabs-custom .tab-btn.active {
+      background: linear-gradient(135deg, var(--brand-a), var(--brand-b));
+      color: white;
+      box-shadow: 0 6px 14px rgba(16, 185, 129, 0.22);
+    }
+
+    .site-item {
+      background: var(--bs-body-bg);
+      border-radius: 0.75rem;
+      padding: 1rem;
+      transition: all 0.3s;
+      border: 1px solid var(--bs-border-color);
+      text-decoration: none;
+      display: block;
+      height: 100%;
+    }
+
+    .site-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      border-color: var(--brand-b);
+    }
+
+    .site-head {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .site-thumb {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 0.5rem;
+      object-fit: cover;
+      background: linear-gradient(135deg, var(--brand-a), var(--brand-b));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .site-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--bs-body-color);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .site-desc {
+      font-size: 0.75rem;
+      color: var(--bs-secondary-color);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .friend-link-card {
+      border-radius: 0.75rem;
+      overflow: hidden;
+      transition: all 0.3s;
+      border: 1px solid var(--bs-border-color);
+    }
+
+    .friend-link-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .friend-link-card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+    }
+
+    .floating-actions {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      z-index: 1000;
+    }
+
+    .float-btn {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: var(--bs-body-bg);
+      border: 2px solid var(--brand-b);
+      color: var(--brand-b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.12);
+    }
+
+    .float-btn:hover {
+      background: var(--brand-b);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      background: linear-gradient(135deg, rgba(38, 194, 129, 0.05), rgba(16, 185, 129, 0.05));
+      padding: 2rem 0;
+      margin-top: 3rem;
+      border-top: 1px solid var(--bs-border-color);
+    }
+
+    footer a {
+      color: var(--brand-b);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    .theme-toggle {
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 50%;
+      transition: all 0.3s;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(16, 185, 129, 0.1);
+    }
+
+    [data-bs-theme="dark"] {
+      --bs-body-bg: #1a1a2e;
+      --bs-body-color: #e2e8f0;
+      --bs-border-color: #334155;
+      --bs-secondary-color: #94a3b8;
+    }
+
+    [data-bs-theme="dark"] .site-item {
+      background: #1e293b;
+    }
+
+    [data-bs-theme="dark"] .search-box input {
+      background: #1e293b;
+      color: #e2e8f0;
+    }
+
+    [data-bs-theme="dark"] .navbar {
+      background: rgba(26, 26, 46, 0.95) !important;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+        <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#26c281,#10b981);display:flex;align-items:center;justify-content:center;color:white;">
+          <i class="bi bi-tree-fill"></i>
+        </div>
+        影视森林
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto ms-lg-4">
+          <li class="nav-item"><a class="nav-link active" href="#">首页</a></li>
+          <li class="nav-item"><a class="nav-link" href="#online-video">在线影视</a></li>
+          <li class="nav-item"><a class="nav-link" href="#video-resource">影视资源</a></li>
+          <li class="nav-item"><a class="nav-link" href="#entertainment">休闲娱乐</a></li>
+          <li class="nav-item"><a class="nav-link" href="#online-tools">在线工具</a></li>
+          <li class="nav-item"><a class="nav-link" href="#guide">观影指南</a></li>
+        </ul>
+        <div class="d-flex align-items-center gap-3">
+          <div class="theme-toggle" id="themeToggle">
+            <i class="bi bi-moon-fill"></i>
+          </div>
+          <a href="#" class="btn btn-sm btn-outline-success">投稿收录</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="search-section">
+      <div class="search-box">
+        <input type="text" placeholder="搜索你想要的网站...">
+        <button><i class="bi bi-search"></i></button>
+      </div>
+      <div class="search-hot">
+        <span>热门搜索：</span>
+        <a href="#">电影</a>
+        <a href="#">影视</a>
+        <a href="#">影院</a>
+        <a href="#">资源</a>
+        <a href="#">动漫</a>
+        <a href="#">美剧</a>
+        <a href="#">韩剧</a>
+      </div>
+    </div>
+
+    <section id="online-video">
+      <h2 class="section-title position-relative">在线影视</h2>
+      <div class="nav-tabs-custom">
+        <button class="tab-btn active" data-tab="all">全部</button>
+        <button class="tab-btn" data-tab="domestic">国内</button>
+        <button class="tab-btn" data-tab="overseas">海外</button>
+        <button class="tab-btn" data-tab="tv">电视直播</button>
+      </div>
+      <div class="row row-cols-2 row-cols-lg-3 row-cols-xl-5 g-3 tab-content" data-tab-group="online-video">
+        <div class="col tab-pane" data-category="domestic">
+          <a href="https://www.iqiyi.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-play-circle-fill"></i></div>
+              <div class="site-title">爱奇艺</div>
+            </div>
+            <div class="site-desc">中国领先的在线视频平台，海量影视内容</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="domestic">
+          <a href="https://v.qq.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-play-btn-fill"></i></div>
+              <div class="site-title">腾讯视频</div>
+            </div>
+            <div class="site-desc">腾讯视频，海量高清视频在线观看</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="domestic">
+          <a href="https://www.youku.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-tv-fill"></i></div>
+              <div class="site-title">优酷视频</div>
+            </div>
+            <div class="site-desc">优酷视频，这世界很酷</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="domestic">
+          <a href="https://www.bilibili.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-camera-video-fill"></i></div>
+              <div class="site-title">哔哩哔哩</div>
+            </div>
+            <div class="site-desc">国内知名的视频弹幕网站</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="domestic">
+          <a href="https://www.mgtv.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-star-fill"></i></div>
+              <div class="site-title">芒果TV</div>
+            </div>
+            <div class="site-desc">湖南卫视官方在线平台</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="domestic">
+          <a href="https://www.le.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-badge-tm-fill"></i></div>
+              <div class="site-title">乐视视频</div>
+            </div>
+            <div class="site-desc">乐视视频，就视不一样</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="domestic">
+          <a href="https://www.pptv.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-display"></i></div>
+              <div class="site-title">PPTV</div>
+            </div>
+            <div class="site-desc">PPTV聚力视频</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="domestic">
+          <a href="https://www.1905.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-film"></i></div>
+              <div class="site-title">1905电影网</div>
+            </div>
+            <div class="site-desc">CCTV6电影频道官方平台</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="overseas">
+          <a href="https://www.netflix.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-n"></i></div>
+              <div class="site-title">Netflix</div>
+            </div>
+            <div class="site-desc">全球领先的流媒体娱乐服务</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="overseas">
+          <a href="https://www.disneyplus.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-magic"></i></div>
+              <div class="site-title">Disney+</div>
+            </div>
+            <div class="site-desc">迪士尼官方流媒体平台</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="overseas">
+          <a href="https://www.primevideo.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-amazon"></i></div>
+              <div class="site-title">Prime Video</div>
+            </div>
+            <div class="site-desc">亚马逊流媒体视频服务</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="overseas">
+          <a href="https://www.hbo.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-hbo"></i></div>
+              <div class="site-title">HBO Max</div>
+            </div>
+            <div class="site-desc">HBO官方流媒体平台</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="overseas">
+          <a href="https://www.hulu.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-h"></i></div>
+              <div class="site-title">Hulu</div>
+            </div>
+            <div class="site-desc">美国知名流媒体平台</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="overseas">
+          <a href="https://www.youtube.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-youtube"></i></div>
+              <div class="site-title">YouTube</div>
+            </div>
+            <div class="site-desc">全球最大视频分享平台</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="tv">
+          <a href="https://tv.cctv.com/live/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-broadcast"></i></div>
+              <div class="site-title">央视直播</div>
+            </div>
+            <div class="site-desc">中央电视台在线直播</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="tv">
+          <a href="https://www.yangshipin.cn/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-tv"></i></div>
+              <div class="site-title">央视频</div>
+            </div>
+            <div class="site-desc">中央广播电视总台新媒体平台</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="tv">
+          <a href="https://www.hunantv.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-broadcast-pin"></i></div>
+              <div class="site-title">湖南卫视</div>
+            </div>
+            <div class="site-desc">湖南卫视在线直播</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="tv">
+          <a href="https://www.zjstv.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-reception-4"></i></div>
+              <div class="site-title">浙江卫视</div>
+            </div>
+            <div class="site-desc">浙江卫视在线直播</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="video-resource">
+      <h2 class="section-title position-relative">影视资源</h2>
+      <div class="nav-tabs-custom">
+        <button class="tab-btn active" data-tab="all">全部</button>
+        <button class="tab-btn" data-tab="download">下载资源</button>
+        <button class="tab-btn" data-tab="online">在线播放</button>
+        <button class="tab-btn" data-tab="subtitle">字幕资源</button>
+      </div>
+      <div class="row row-cols-2 row-cols-lg-3 row-cols-xl-5 g-3 tab-content" data-tab-group="video-resource">
+        <div class="col tab-pane" data-category="download">
+          <a href="https://www.dytt8899.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-download"></i></div>
+              <div class="site-title">电影天堂</div>
+            </div>
+            <div class="site-desc">免费电影下载，高清资源分享</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="download">
+          <a href="https://www.piaohua.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-cloud-download"></i></div>
+              <div class="site-title">飘花电影</div>
+            </div>
+            <div class="site-desc">每天更新最新电影下载</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="download">
+          <a href="https://www.xunlei.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-lightning"></i></div>
+              <div class="site-title">迅雷电影</div>
+            </div>
+            <div class="site-desc">迅雷电影资源下载</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="download">
+          <a href="https://www.btbtv.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-hdd-stack"></i></div>
+              <div class="site-title">BT电影</div>
+            </div>
+            <div class="site-desc">BT种子电影资源</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="online">
+          <a href="https://www.novipnoad.net/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-play-circle"></i></div>
+              <div class="site-title">大米星球</div>
+            </div>
+            <div class="site-desc">免费在线影视观看</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="online">
+          <a href="https://www.zxzjhd.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-house-door"></i></div>
+              <div class="site-title">在线之家</div>
+            </div>
+            <div class="site-desc">最新电影在线观看</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="online">
+          <a href="https://www.chok8.vip/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-camera-reels"></i></div>
+              <div class="site-title">酷吧影视</div>
+            </div>
+            <div class="site-desc">免费高清影视在线</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="online">
+          <a href="https://www.aidi6.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-collection-play"></i></div>
+              <div class="site-title">艾迪影视</div>
+            </div>
+            <div class="site-desc">最新影视在线观看</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="online">
+          <a href="https://www.cupfox.ai/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-search-heart"></i></div>
+              <div class="site-title">茶杯狐</div>
+            </div>
+            <div class="site-desc">影视资源搜索引擎</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="online">
+          <a href="https://pan666.net/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-cloud"></i></div>
+              <div class="site-title">云盘资源</div>
+            </div>
+            <div class="site-desc">网盘影视资源分享</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="subtitle">
+          <a href="https://www.zimuzu.tv/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-translate"></i></div>
+              <div class="site-title">字幕组</div>
+            </div>
+            <div class="site-desc">海外影视剧中文字幕下载</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="subtitle">
+          <a href="https://assrt.net/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-file-earmark-text"></i></div>
+              <div class="site-title">伪射手网</div>
+            </div>
+            <div class="site-desc">字幕搜索与下载平台</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="subtitle">
+          <a href="https://www.opensubtitles.org/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-globe-americas"></i></div>
+              <div class="site-title">OpenSubtitles</div>
+            </div>
+            <div class="site-desc">全球最大字幕下载网站</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="subtitle">
+          <a href="https://subhd.tv/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-file-earmark-richtext"></i></div>
+              <div class="site-title">SubHD</div>
+            </div>
+            <div class="site-desc">字幕下载分享平台</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="entertainment">
+      <h2 class="section-title position-relative">休闲娱乐</h2>
+      <div class="nav-tabs-custom">
+        <button class="tab-btn active" data-tab="all">全部</button>
+        <button class="tab-btn" data-tab="anime">动漫</button>
+        <button class="tab-btn" data-tab="variety">综艺</button>
+        <button class="tab-btn" data-tab="novel">小说</button>
+      </div>
+      <div class="row row-cols-2 row-cols-lg-3 row-cols-xl-5 g-3 tab-content" data-tab-group="entertainment">
+        <div class="col tab-pane" data-category="anime">
+          <a href="https://www.dmzj.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-book"></i></div>
+              <div class="site-title">动漫之家</div>
+            </div>
+            <div class="site-desc">动漫资讯、漫画阅读平台</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="anime">
+          <a href="https://www.acfun.cn/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-emoji-smile"></i></div>
+              <div class="site-title">AcFun</div>
+            </div>
+            <div class="site-desc">中国弹幕视频发源地</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="anime">
+          <a href="https://www.bimiacg.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-controller"></i></div>
+              <div class="site-title">哔咪动漫</div>
+            </div>
+            <div class="site-desc">在线动漫观看平台</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="anime">
+          <a href="https://www.yhdm.io/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-stars"></i></div>
+              <div class="site-title">樱花动漫</div>
+            </div>
+            <div class="site-desc">专注动漫的门户网站</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="anime">
+          <a href="https://www.crunchyroll.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-play-btn"></i></div>
+              <div class="site-title">Crunchyroll</div>
+            </div>
+            <div class="site-desc">全球知名动漫流媒体</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="variety">
+          <a href="https://www.zjstv.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-tv-fill"></i></div>
+              <div class="site-title">浙江卫视</div>
+            </div>
+            <div class="site-desc">浙江卫视官方平台</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="variety">
+          <a href="https://www.jstv.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-broadcast"></i></div>
+              <div class="site-title">江苏卫视</div>
+            </div>
+            <div class="site-desc">江苏卫视官方平台</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="variety">
+          <a href="https://www.dragontv.cn/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-reception-4"></i></div>
+              <div class="site-title">东方卫视</div>
+            </div>
+            <div class="site-desc">东方卫视官方平台</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="novel">
+          <a href="https://www.qidian.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-journal-text"></i></div>
+              <div class="site-title">起点中文网</div>
+            </div>
+            <div class="site-desc">原创网络文学网站</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="novel">
+          <a href="https://www.zongheng.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-book-half"></i></div>
+              <div class="site-title">纵横中文网</div>
+            </div>
+            <div class="site-desc">免费小说阅读平台</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="novel">
+          <a href="https://www.jjwxc.net/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-heart"></i></div>
+              <div class="site-title">晋江文学城</div>
+            </div>
+            <div class="site-desc">女性文学创作平台</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="online-tools">
+      <h2 class="section-title position-relative">在线工具</h2>
+      <div class="nav-tabs-custom">
+        <button class="tab-btn active" data-tab="all">全部</button>
+        <button class="tab-btn" data-tab="player">播放器</button>
+        <button class="tab-btn" data-tab="converter">转换器</button>
+        <button class="tab-btn" data-tab="downloader">下载器</button>
+      </div>
+      <div class="row row-cols-2 row-cols-lg-3 row-cols-xl-5 g-3 tab-content" data-tab-group="online-tools">
+        <div class="col tab-pane" data-category="player">
+          <a href="https://www.vidhub.cc/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-play-btn"></i></div>
+              <div class="site-title">VidHub</div>
+            </div>
+            <div class="site-desc">在线视频播放工具</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="player">
+          <a href="https://www.videolan.org/vlc/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-cone-striped"></i></div>
+              <div class="site-title">VLC播放器</div>
+            </div>
+            <div class="site-desc">免费开源多媒体播放器</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="player">
+          <a href="https://potplayer.tv/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-camera-reels-fill"></i></div>
+              <div class="site-title">PotPlayer</div>
+            </div>
+            <div class="site-desc">强大的本地视频播放器</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="converter">
+          <a href="https://www.online-convert.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-arrow-repeat"></i></div>
+              <div class="site-title">格式转换</div>
+            </div>
+            <div class="site-desc">在线文件格式转换工具</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="converter">
+          <a href="https://cloudconvert.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-cloud-arrow-up"></i></div>
+              <div class="site-title">CloudConvert</div>
+            </div>
+            <div class="site-desc">云端文件格式转换</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="converter">
+          <a href="https://www.handbrake.fr/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-tools"></i></div>
+              <div class="site-title">HandBrake</div>
+            </div>
+            <div class="site-desc">开源视频转码工具</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="downloader">
+          <a href="https://www.internetdownloadmanager.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-download"></i></div>
+              <div class="site-title">IDM</div>
+            </div>
+            <div class="site-desc">最强下载加速器</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="downloader">
+          <a href="https://github.com/aria2/aria2" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-terminal"></i></div>
+              <div class="site-title">aria2</div>
+            </div>
+            <div class="site-desc">轻量级多协议下载工具</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="downloader">
+          <a href="https://www.xunlei.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-lightning-charge"></i></div>
+              <div class="site-title">迅雷</div>
+            </div>
+            <div class="site-desc">迅雷高速下载</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="guide">
+      <h2 class="section-title position-relative">观影指南</h2>
+      <div class="nav-tabs-custom">
+        <button class="tab-btn active" data-tab="all">全部</button>
+        <button class="tab-btn" data-tab="rating">评分网站</button>
+        <button class="tab-btn" data-tab="recommend">推荐榜单</button>
+        <button class="tab-btn" data-tab="news">影视资讯</button>
+      </div>
+      <div class="row row-cols-2 row-cols-lg-3 row-cols-xl-5 g-3 tab-content" data-tab-group="guide">
+        <div class="col tab-pane" data-category="rating">
+          <a href="https://movie.douban.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-star-half"></i></div>
+              <div class="site-title">豆瓣评分</div>
+            </div>
+            <div class="site-desc">国内权威影视评分平台</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="rating">
+          <a href="https://www.imdb.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-trophy"></i></div>
+              <div class="site-title">IMDb</div>
+            </div>
+            <div class="site-desc">全球最大影视数据库</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="rating">
+          <a href="https://www.rottentomatoes.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-percent"></i></div>
+              <div class="site-title">烂番茄</div>
+            </div>
+            <div class="site-desc">专业影评聚合网站</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="rating">
+          <a href="https://www.metacritic.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-bar-chart"></i></div>
+              <div class="site-title">Metacritic</div>
+            </div>
+            <div class="site-desc">综合评分与评论平台</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="rating">
+          <a href="https://letterboxd.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-journal-bookmark"></i></div>
+              <div class="site-title">Letterboxd</div>
+            </div>
+            <div class="site-desc">电影日记与社交平台</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="recommend">
+          <a href="https://www.zhihu.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-question-circle"></i></div>
+              <div class="site-title">知乎影视</div>
+            </div>
+            <div class="site-desc">知乎影视讨论与推荐</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="recommend">
+          <a href="https://www.reddit.com/r/movies/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-reddit"></i></div>
+              <div class="site-title">Reddit Movies</div>
+            </div>
+            <div class="site-desc">Reddit电影讨论区</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="news">
+          <a href="https://www.1905.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-newspaper"></i></div>
+              <div class="site-title">1905电影网</div>
+            </div>
+            <div class="site-desc">电影资讯与新闻</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="news">
+          <a href="https://www.mtime.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-clock-history"></i></div>
+              <div class="site-title">时光网</div>
+            </div>
+            <div class="site-desc">电影资讯与社区</div>
+          </a>
+        </div>
+        <div class="col tab-pane" data-category="news">
+          <a href="https://collider.com/" target="_blank" class="site-item">
+            <div class="site-head">
+              <div class="site-thumb"><i class="bi bi-camera2"></i></div>
+              <div class="site-title">Collider</div>
+            </div>
+            <div class="site-desc">影视娱乐新闻</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-4">
+      <h2 class="section-title position-relative">友情链接</h2>
+      <div class="row row-cols-2 row-cols-lg-4 g-3">
+        <div class="col">
+          <a href="#" class="friend-link-card text-decoration-none">
+            <div style="height:120px;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;color:white;font-size:2rem;">
+              <i class="bi bi-globe"></i>
+            </div>
+            <div class="p-3">
+              <div class="fw-bold">导航站点A</div>
+              <div class="text-muted small">优质网站聚合</div>
+            </div>
+          </a>
+        </div>
+        <div class="col">
+          <a href="#" class="friend-link-card text-decoration-none">
+            <div style="height:120px;background:linear-gradient(135deg,#f093fb,#f5576c);display:flex;align-items:center;justify-content:center;color:white;font-size:2rem;">
+              <i class="bi bi-collection-play"></i>
+            </div>
+            <div class="p-3">
+              <div class="fw-bold">影视站点B</div>
+              <div class="text-muted small">高清影视资源</div>
+            </div>
+          </a>
+        </div>
+        <div class="col">
+          <a href="#" class="friend-link-card text-decoration-none">
+            <div style="height:120px;background:linear-gradient(135deg,#4facfe,#00f2fe);display:flex;align-items:center;justify-content:center;color:white;font-size:2rem;">
+              <i class="bi bi-tools"></i>
+            </div>
+            <div class="p-3">
+              <div class="fw-bold">工具站点C</div>
+              <div class="text-muted small">实用在线工具</div>
+            </div>
+          </a>
+        </div>
+        <div class="col">
+          <a href="#" class="friend-link-card text-decoration-none">
+            <div style="height:120px;background:linear-gradient(135deg,#fa709a,#fee140);display:flex;align-items:center;justify-content:center;color:white;font-size:2rem;">
+              <i class="bi bi-bookmark-star"></i>
+            </div>
+            <div class="p-3">
+              <div class="fw-bold">推荐站点D</div>
+              <div class="text-muted small">精选好站推荐</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container text-center">
+      <p class="text-muted mb-2">免责声明：本站仅为导航收录，不提供任何影视资源存储与播放服务</p>
+      <p class="mb-2">
+        <a href="#">网站地图</a> | 
+        <a href="mailto:contact@tvtv1.cc">联系邮箱</a> | 
+        <a href="#">投稿收录</a>
+      </p>
+      <p class="text-muted small mb-0">Copyright © 2026 影视森林 All Rights Reserved</p>
+    </div>
+  </footer>
+
+  <div class="floating-actions">
+    <button class="float-btn" id="shareBtn" title="分享">
+      <i class="bi bi-share"></i>
+    </button>
+    <button class="float-btn" id="topBtn" title="回到顶部">
+      <i class="bi bi-chevron-up"></i>
+    </button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const icon = themeToggle.querySelector('i');
+
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-bs-theme', savedTheme);
+    updateThemeIcon(savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-bs-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-bs-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcon(newTheme);
+    });
+
+    function updateThemeIcon(theme) {
+      icon.className = theme === 'dark' ? 'bi bi-sun-fill' : 'bi bi-moon-fill';
+    }
+
+    document.querySelectorAll('.nav-tabs-custom').forEach(tabGroup => {
+      const buttons = tabGroup.querySelectorAll('.tab-btn');
+      const contentArea = tabGroup.nextElementSibling;
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          buttons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          const selectedTab = btn.getAttribute('data-tab');
+          const items = contentArea.querySelectorAll('.col');
+
+          items.forEach(item => {
+            const category = item.getAttribute('data-category');
+            if (selectedTab === 'all' || category === selectedTab) {
+              item.style.display = '';
+            } else {
+              item.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+
+    document.getElementById('topBtn').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    document.getElementById('shareBtn').addEventListener('click', () => {
+      if (navigator.share) {
+        navigator.share({
+          title: '影视森林导航',
+          url: window.location.href
+        });
+      } else {
+        navigator.clipboard.writeText(window.location.href);
+        alert('链接已复制到剪贴板');
+      }
+    });
+
+    const searchInput = document.querySelector('.search-box input');
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        const query = searchInput.value.trim();
+        if (query) {
+          window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
+        }
+      }
+    });
+
+    document.querySelector('.search-box button').addEventListener('click', () => {
+      const query = searchInput.value.trim();
+      if (query) {
+        window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
+      }
+    });
+  </script>
+</body>
+
+</html>
