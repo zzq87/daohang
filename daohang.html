@@ -5,7 +5,6 @@
   <title>网址导航</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="个人网址导航 - 精心整理的实用网站集合">
   <link href="./static/css/bootstrap.min.css" rel="stylesheet">
   <script src="./static/js/echarts/echarts.js" defer></script>
   <style>
@@ -26,7 +25,6 @@
       margin: 0;
     }
 
-    /* 顶部彩色条 */
     body > .top-bar {
       height: 3px;
       background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #667eea);
@@ -51,30 +49,143 @@
       box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     }
 
+    /* ── 头部 ── */
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid #f0f0f5;
+    }
+
+    .page-header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .page-logo {
+      width: 36px;
+      height: 36px;
+      background: #667eea;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .page-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin: 0;
+    }
+
+    .page-subtitle {
+      font-size: 0.75rem;
+      color: #bbb;
+      font-weight: 400;
+    }
+
+    /* ── 搜索框 ── */
+    .search-box {
+      position: relative;
+      flex: 1;
+      max-width: 420px;
+      min-width: 200px;
+    }
+
+    .search-box input {
+      width: 100%;
+      height: 40px;
+      padding: 0 2.5rem 0 2.5rem;
+      border: 2px solid #e8e8ee;
+      border-radius: 0.5rem;
+      font-size: 0.9rem;
+      font-family: inherit;
+      color: #333;
+      background: #fafafa;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: #667eea;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.12);
+    }
+
+    .search-box input::placeholder {
+      color: #c0c0c8;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      pointer-events: none;
+      color: #c0c0c8;
+    }
+
+    .search-engine {
+      position: absolute;
+      right: 0.35rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      background: #f0f2f8;
+      border-radius: 0.35rem;
+      padding: 0.2rem 0.45rem;
+      font-size: 0.7rem;
+      color: #667eea;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      border: none;
+    }
+
+    .search-engine:hover {
+      background: #e4e6f0;
+    }
+
     /* ── 时钟 ── */
     .showTime {
       text-align: center;
       background: #667eea;
       border-radius: 0.5rem;
-      padding: 1.25rem;
+      padding: 1rem;
       color: #fff;
-      font-size: 1.35rem;
+      font-size: 1.2rem;
       font-weight: 600;
       line-height: 1.6;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     /* ── 导航卡片 ── */
     .nav-card {
       border-radius: 0.5rem;
-      min-height: 96px;
+      min-height: 88px;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
       position: relative;
       border: none;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.3s ease;
+    }
+
+    .nav-card.hidden {
+      display: none;
     }
 
     .nav-card::before,
@@ -98,7 +209,7 @@
     .nav-card p {
       margin: 0;
       line-height: 1.3;
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       font-weight: 600;
       color: #fff;
       padding: 0 0.5rem;
@@ -110,10 +221,15 @@
       display: flex;
       align-items: center;
       gap: 0.6rem;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 700;
       color: #1a1a2e;
-      margin: 1.75rem 0 0.75rem;
+      margin: 1.5rem 0 0.6rem;
+      transition: opacity 0.3s ease;
+    }
+
+    .section-title.hidden {
+      display: none;
     }
 
     .section-title .label {
@@ -121,17 +237,38 @@
       color: #667eea;
       font-size: 0.7rem;
       font-weight: 600;
-      padding: 0.2rem 0.6rem;
+      padding: 0.15rem 0.5rem;
       border-radius: 0.5rem;
       font-variant-numeric: tabular-nums;
-      letter-spacing: 0.03em;
+    }
+
+    /* 无结果提示 */
+    .no-results {
+      display: none;
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #999;
+    }
+
+    .no-results.active {
+      display: block;
+    }
+
+    .no-results .icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .no-results p {
+      font-size: 0.95rem;
+      margin: 0;
     }
 
     /* ── 仪表盘 ── */
     #main {
       width: 100%;
       max-width: 600px;
-      height: 300px;
+      height: 280px;
       margin: 1.5rem auto;
       background: #fff;
       border: 1px solid #e8e8ee;
@@ -190,15 +327,18 @@
       border-top: 1px solid #e8e8ee;
     }
 
-    /* ── 响应式微调 ── */
+    /* ── 响应式 ── */
     @media (max-width: 576px) {
       body { padding: 0; }
       .container { padding: 1rem; border-radius: 0 0 0.5rem 0.5rem; }
-      .showTime { font-size: 1.05rem; padding: 1rem; }
-      .nav-card { min-height: 80px; }
-      .nav-card p { font-size: 0.95rem; }
-      .section-title { font-size: 0.95rem; }
-      #main { height: 250px; }
+      .page-header { padding-bottom: 0.75rem; }
+      .page-title { font-size: 1.05rem; }
+      .search-box { max-width: 100%; min-width: 100%; order: 3; }
+      .showTime { font-size: 1rem; padding: 0.75rem; }
+      .nav-card { min-height: 76px; }
+      .nav-card p { font-size: 0.9rem; }
+      .section-title { font-size: 0.9rem; }
+      #main { height: 220px; }
       .flip-image { width: 200px; height: 200px; }
     }
   </style>
@@ -208,153 +348,179 @@
   <div class="top-bar"></div>
 
   <div class="container">
+    <!-- ── 头部 + 搜索 ── -->
+    <div class="page-header">
+      <div class="page-header-left">
+        <div class="page-logo">🧧</div>
+        <div>
+          <div class="page-title">网址导航</div>
+          <div class="page-subtitle">精心整理的实用网站</div>
+        </div>
+      </div>
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="searchInput" placeholder="搜索站点，或回车用 Google 搜索…" autocomplete="off">
+        <button class="search-engine" id="engineBtn" title="切换搜索引擎">Google ▾</button>
+      </div>
+    </div>
+
+    <!-- ── 时钟 ── -->
     <div class="showTime">加载中…</div>
 
     <!-- ═══════════ 影视娱乐 ═══════════ -->
-    <div class="section-title">🎬 影视娱乐 <span class="label">8 个站点</span></div>
+    <div class="section-title" data-section="影视娱乐">🎬 影视娱乐 <span class="label">8 个站点</span></div>
 
-    <div class="row g-3 mb-3">
+    <div class="row g-3 mb-3" data-category="影视娱乐">
       <div class="col-6 col-md-3">
-        <div class="nav-card" style="background:#667eea;">
+        <div class="nav-card" style="background:#667eea;" data-name="知乎" data-url="https://zhihu.com">
           <a href="http://www.zhihu.com/" target="_blank" rel="noopener noreferrer"><p>📖 知乎</p></a>
         </div>
       </div>
       <div class="col-6 col-md-3">
-        <div class="nav-card" style="background:#f093fb;">
+        <div class="nav-card" style="background:#f093fb;" data-name="电影天堂" data-url="https://www.dytt8899.com/">
           <a href="https://www.dytt8899.com/" target="_blank" rel="noopener noreferrer"><p>🎬 电影天堂</p></a>
         </div>
       </div>
       <div class="col-6 col-md-3">
-        <div class="nav-card" style="background:#4facfe;">
+        <div class="nav-card" style="background:#4facfe;" data-name="549.tv" data-url="http://549.tv/">
           <a href="http://549.tv/" target="_blank" rel="noopener noreferrer"><p>📺 549.tv</p></a>
         </div>
       </div>
       <div class="col-6 col-md-3">
-        <div class="nav-card" style="background:#fa709a;">
+        <div class="nav-card" style="background:#fa709a;" data-name="大米星球" data-url="https://www.novipnoad.net/">
           <a href="https://www.novipnoad.net/" target="_blank" rel="noopener noreferrer"><p>⭐ 大米星球</p></a>
         </div>
       </div>
     </div>
 
-    <div class="row g-3 mb-3">
+    <div class="row g-3 mb-3" data-category="影视娱乐">
       <div class="col-6 col-md-3">
-        <div class="nav-card" style="background:#0eb0c9;">
+        <div class="nav-card" style="background:#0eb0c9;" data-name="优酷" data-url="http://www.youku.com/">
           <a href="http://www.youku.com/" target="_blank" rel="noopener noreferrer"><p>▶️ 优酷</p></a>
         </div>
       </div>
       <div class="col-6 col-md-3">
-        <div class="nav-card" style="background:#56ab2f;">
+        <div class="nav-card" style="background:#56ab2f;" data-name="菜鸟教程" data-url="https://www.runoob.com/">
           <a href="https://www.runoob.com/" target="_blank" rel="noopener noreferrer"><p>📚 菜鸟教程</p></a>
         </div>
       </div>
       <div class="col-6 col-md-3">
-        <div class="nav-card" style="background:#636e72;">
+        <div class="nav-card" style="background:#636e72;" data-name="盒子地窖" data-url="http://www.wmsio.cn/">
           <a href="http://www.wmsio.cn/" target="_blank" rel="noopener noreferrer"><p>📦 盒子地窖</p></a>
         </div>
       </div>
       <div class="col-6 col-md-3">
-        <div class="nav-card" style="background:#eb3349;">
+        <div class="nav-card" style="background:#eb3349;" data-name="吾爱破解" data-url="https://www.52pojie.cn/">
           <a href="http://www.52pojie.cn" target="_blank" rel="noopener noreferrer"><p>💝 吾爱破解</p></a>
         </div>
       </div>
     </div>
 
     <!-- ═══════════ 视频音乐 ═══════════ -->
-    <div class="section-title">🎵 视频音乐 <span class="label">8 个站点</span></div>
+    <div class="section-title" data-section="视频音乐">🎵 视频音乐 <span class="label">8 个站点</span></div>
 
-    <div class="row g-3 mb-3">
+    <div class="row g-3 mb-3" data-category="视频音乐">
       <div class="col-6 col-md-3">
-        <div class="nav-card" style="background:#ff9a9e;">
+        <div class="nav-card" style="background:#ff9a9e;" data-name="哔哩哔哩 bilibili" data-url="http://www.bilibili.com/">
           <a href="http://www.bilibili.com/" target="_blank" rel="noopener noreferrer"><p>📺 哔哩哔哩</p></a>
         </div>
       </div>
       <div class="col-6 col-md-3">
-        <div class="nav-card" style="background:#a18cd1;">
+        <div class="nav-card" style="background:#a18cd1;" data-name="在线之家" data-url="https://www.zxzjhd.com/">
           <a href="https://www.zxzjhd.com/" target="_blank" rel="noopener noreferrer"><p>🎞️ 在线之家</p></a>
         </div>
       </div>
       <div class="col-6 col-md-3">
-        <div class="nav-card" style="background:#2c3e50;">
+        <div class="nav-card" style="background:#2c3e50;" data-name="恩山论坛" data-url="https://www.right.com.cn/forum/">
           <a href="https://www.right.com.cn/forum/forum.php?mod=forumdisplay&fid=158&filter=typeid&typeid=21" target="_blank" rel="noopener noreferrer"><p>💻 恩山论坛</p></a>
         </div>
       </div>
       <div class="col-6 col-md-3">
-        <div class="nav-card" style="background:#2338f1;">
+        <div class="nav-card" style="background:#2338f1;" data-name="云盘资源" data-url="https://pan666.net/">
           <a href="https://pan666.net/" target="_blank" rel="noopener noreferrer"><p>☁️ 云盘资源</p></a>
         </div>
       </div>
     </div>
 
-    <div class="row g-3 mb-3">
+    <div class="row g-3 mb-3" data-category="视频音乐">
       <div class="col-6 col-md-3">
-        <div class="nav-card" style="background:#ef3473;">
+        <div class="nav-card" style="background:#ef3473;" data-name="Rutracker" data-url="https://rutracker.org/">
           <a href="https://rutracker.org/" target="_blank" rel="noopener noreferrer"><p>🌐 Rutracker</p></a>
         </div>
       </div>
       <div class="col-6 col-md-3">
-        <div class="nav-card" style="background:#2af598;">
+        <div class="nav-card" style="background:#2af598;" data-name="飘花电影" data-url="https://www.piaohua.com/">
           <a href="https://www.piaohua.com/" target="_blank" rel="noopener noreferrer"><p>🎬 飘花电影</p></a>
         </div>
       </div>
       <div class="col-6 col-md-3">
-        <div class="nav-card" style="background:#1a1a2e;">
+        <div class="nav-card" style="background:#1a1a2e;" data-name="搜索引擎 Yandex" data-url="https://yandex.com/">
           <a href="https://yandex.com/" target="_blank" rel="noopener noreferrer"><p>🔍 搜索引擎</p></a>
         </div>
       </div>
       <div class="col-6 col-md-3">
-        <div class="nav-card" style="background:#dc143c;">
+        <div class="nav-card" style="background:#dc143c;" data-name="酷吧影视" data-url="https://www.chok8.vip/">
           <a href="https://www.chok8.vip/" target="_blank" rel="noopener noreferrer"><p>🎥 酷吧影视</p></a>
         </div>
       </div>
     </div>
 
     <!-- ═══════════ 推荐站点 ═══════════ -->
-    <div class="section-title">🚀 推荐站点 <span class="label">8 个站点</span></div>
+    <div class="section-title" data-section="推荐站点">🚀 推荐站点 <span class="label">8 个站点</span></div>
 
-    <div class="row g-3 mb-3">
+    <div class="row g-3 mb-3" data-category="推荐站点">
       <div class="col-6 col-md-3">
-        <div class="nav-card" style="background:#667eea;">
+        <div class="nav-card" style="background:#667eea;" data-name="站点推荐" data-url="https://ayouth.top/">
           <a href="https://ayouth.top/ayouth/video.html" target="_blank" rel="noopener noreferrer"><p>🌟 站点推荐</p></a>
         </div>
       </div>
       <div class="col-6 col-md-3">
-        <div class="nav-card" style="background:#f093fb;">
+        <div class="nav-card" style="background:#f093fb;" data-name="幺米搜索" data-url="https://www.yaomiso.com/">
           <a href="https://www.yaomiso.com/" target="_blank" rel="noopener noreferrer"><p>🔎 幺米搜索</p></a>
         </div>
       </div>
       <div class="col-6 col-md-3">
-        <div class="nav-card" style="background:#11998e;">
+        <div class="nav-card" style="background:#11998e;" data-name="linux.do" data-url="https://linux.do/">
           <a href="https://linux.do/" target="_blank" rel="noopener noreferrer"><p>🐧 linux.do</p></a>
         </div>
       </div>
       <div class="col-6 col-md-3">
-        <div class="nav-card" style="background:#fc4a1a;">
+        <div class="nav-card" style="background:#fc4a1a;" data-name="好好看啊" data-url="https://103.194.185.51:51123/">
           <a href="https://103.194.185.51:51123/" target="_blank" rel="noopener noreferrer"><p>🎬 好好看啊</p></a>
         </div>
       </div>
     </div>
 
-    <div class="row g-3 mb-3">
+    <div class="row g-3 mb-3" data-category="推荐站点">
       <div class="col-6 col-md-3">
-        <div class="nav-card" style="background:#667eea;">
+        <div class="nav-card" style="background:#667eea;" data-name="电子书库 z-lib" data-url="https://zh.z-lib.gd/">
           <a href="https://zh.z-lib.gd/" target="_blank" rel="noopener noreferrer"><p>📚 电子书库</p></a>
         </div>
       </div>
       <div class="col-6 col-md-3">
-        <div class="nav-card" style="background:#f093fb;">
+        <div class="nav-card" style="background:#f093fb;" data-name="茶杯狐狸 cupfox" data-url="https://www.cupfox.ai/">
           <a href="https://www.cupfox.ai/" target="_blank" rel="noopener noreferrer"><p>🦊 茶杯狐狸</p></a>
         </div>
       </div>
       <div class="col-6 col-md-3">
-        <div class="nav-card" style="background:#11998e;">
+        <div class="nav-card" style="background:#11998e;" data-name="艾迪影视" data-url="https://www.aidi6.com/">
           <a href="https://www.aidi6.com/" target="_blank" rel="noopener noreferrer"><p>🎬 艾迪影视</p></a>
         </div>
       </div>
       <div class="col-6 col-md-3">
-        <div class="nav-card" style="background:#fc4a1a;">
+        <div class="nav-card" style="background:#fc4a1a;" data-name="泡椒音乐" data-url="https://pjmp3.de">
           <a href="https://pjmp3.de" target="_blank" rel="noopener noreferrer"><p>🎵 泡椒音乐</p></a>
         </div>
       </div>
+    </div>
+
+    <!-- ── 无结果提示 ── -->
+    <div class="no-results" id="noResults">
+      <div class="icon">🔍</div>
+      <p>没有匹配的站点，按回车用搜索引擎试试</p>
     </div>
 
     <!-- ═══════════ 仪表盘 ═══════════ -->
@@ -376,7 +542,7 @@
 
     <!-- ═══════════ 页脚 ═══════════ -->
     <div class="footer">
-      <p>✨ 个人网址导航 | 精心整理的实用网站 ✨</p>
+      ✨ 个人网址导航 · 精心整理的实用网站 ✨
     </div>
   </div>
 
@@ -405,6 +571,98 @@
 
     tick();
     setInterval(tick, 1000);
+
+    // ── 搜索引擎 ──
+    const engines = [
+      { name: 'Google', url: 'https://www.google.com/search?q=' },
+      { name: '百度', url: 'https://www.baidu.com/s?wd=' },
+      { name: 'Bing', url: 'https://www.bing.com/search?q=' },
+      { name: ' DuckDuckGo', url: 'https://duckduckgo.com/?q=' },
+    ];
+    let currentEngine = parseInt(localStorage.getItem('navEngine') || '0');
+    if (currentEngine >= engines.length) currentEngine = 0;
+
+    const engineBtn = document.getElementById('engineBtn');
+    function updateEngineBtn() {
+      engineBtn.textContent = engines[currentEngine].name + ' ▾';
+    }
+    updateEngineBtn();
+
+    engineBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      currentEngine = (currentEngine + 1) % engines.length;
+      localStorage.setItem('navEngine', currentEngine);
+      updateEngineBtn();
+      doSearch();
+    });
+
+    // ── 搜索功能 ──
+    const searchInput = document.getElementById('searchInput');
+    const navCards = document.querySelectorAll('.nav-card');
+    const sectionTitles = document.querySelectorAll('.section-title');
+    const noResults = document.getElementById('noResults');
+
+    function doSearch() {
+      const query = searchInput.value.trim().toLowerCase();
+
+      if (!query) {
+        // 清空搜索，恢复所有
+        navCards.forEach(card => card.classList.remove('hidden'));
+        sectionTitles.forEach(title => title.classList.remove('hidden'));
+        noResults.classList.remove('active');
+        return;
+      }
+
+      // 检查是否是搜索引擎跳转（没有匹配到站点时）
+      let visibleCount = 0;
+      const visibleSections = new Set();
+
+      navCards.forEach(card => {
+        const name = (card.getAttribute('data-name') || '').toLowerCase();
+        const match = name.includes(query);
+        card.classList.toggle('hidden', !match);
+        if (match) {
+          visibleCount++;
+          const category = card.closest('[data-category]')?.getAttribute('data-category');
+          if (category) visibleSections.add(category);
+        }
+      });
+
+      // 显示/隐藏分区标题
+      sectionTitles.forEach(title => {
+        const section = title.getAttribute('data-section');
+        if (section) {
+          title.classList.toggle('hidden', !visibleSections.has(section));
+        }
+      });
+
+      // 无结果提示
+      noResults.classList.toggle('active', visibleCount === 0);
+    }
+
+    searchInput.addEventListener('input', doSearch);
+
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const query = searchInput.value.trim();
+        if (query) {
+          window.open(engines[currentEngine].url + encodeURIComponent(query), '_blank');
+        }
+      }
+    });
+
+    // 快捷键：/ 聚焦搜索，Escape 清空
+    document.addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement !== searchInput) {
+        e.preventDefault();
+        searchInput.focus();
+      }
+      if (e.key === 'Escape') {
+        searchInput.value = '';
+        searchInput.blur();
+        doSearch();
+      }
+    });
 
     // ── ECharts 仪表盘 ──
     window.addEventListener('DOMContentLoaded', () => {
